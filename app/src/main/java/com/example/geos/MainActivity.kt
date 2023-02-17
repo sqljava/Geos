@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.View.OnClickListener
+import android.view.View.*
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), OnClickListener {
@@ -18,15 +20,17 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     lateinit var javob3 : TextView
     lateinit var javob4 : TextView
 
+    lateinit var result : TextView
+    lateinit var finishcard : CardView
+    lateinit var btnha : Button
+    lateinit var btnyoq : Button
+
     lateinit var rasm : ImageView
-
-
 
     var variant = arrayListOf<TextView>()
 
     var savollar = arrayListOf<Savol>()
 
-    lateinit var indexlar : IntArray
 
     var togrijavob = 0
 
@@ -42,23 +46,53 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setContentView(R.layout.activity_main)
         savolqosh()
         ui()
-        indexlar = IntArray(savollar.size){-1}
+
         randomIndex()
 
         savolyoz()
         varianttanla()
         randomJavob()
-
-        rasm.setImageResource(savollar[indexlar[hozirgi]].rasm)
-
+        rasmqoy()
 
 
+
+
+        hozirgi++
 
 
         javob1.setOnClickListener(this)
         javob2.setOnClickListener(this)
         javob3.setOnClickListener(this)
         javob4.setOnClickListener(this)
+
+        btnha.setOnClickListener{
+            finishcard.visibility = INVISIBLE
+            hozirgi = 0
+            randomIndex()
+            hisob = 0
+            ochko.text = "0"
+
+            for (i in variant){
+                i.isEnabled = true
+            }
+            randomIndex()
+            savolyoz()
+            varianttanla()
+            randomJavob()
+            rasmqoy()
+        }
+
+        btnyoq.setOnClickListener {
+            finishcard.visibility = INVISIBLE
+            hozirgi = 0
+            randomIndex()
+            for (i in variant){
+                i.isEnabled = true
+            }
+            ochko.text = hisob.toString()
+        }
+
+
 
 
 
@@ -72,6 +106,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         javob3 = findViewById(R.id.javob3)
         javob4 = findViewById(R.id.javob4)
         rasm = findViewById(R.id.rasm)
+        finishcard = findViewById(R.id.finishcard)
+        result = findViewById(R.id.result)
+
+        btnha = findViewById(R.id.ha)
+        btnyoq = findViewById(R.id.yoq)
 
         variant.add(javob1)
         variant.add(javob2)
@@ -82,32 +121,23 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     }
 
+    fun rasmqoy(){
+        rasm.setImageResource(savollar[hozirgi].rasm)
+    }
+
     fun randomIndex(){
-
-        //var arr = arrayListOf<Int>()
-
-        for (i in 0..indexlar.size-1){
-            var a = Random.nextInt(indexlar.size)
-
-//            for (j in arr){
-//                if (a!=j){
-//                    arr.add(a)
-//                    indexlar[i] = a
-//                }
-//            }
-            indexlar[i] = a
-        }
+        savollar.shuffle()
     }
 
     fun savolyoz(){
 
-        savoltv.text = savollar[indexlar[hozirgi]].savol
+        savoltv.text = savollar[hozirgi].savol
     }
 
     fun varianttanla(){
         var ran = Random.nextInt(variant.size)
 
-        variant[ran].text = savollar[indexlar[hozirgi]].javob
+        variant[ran].text = savollar[hozirgi].javob
         togrijavob = ran
 
     }
@@ -119,7 +149,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         for (i in savollar){
             javoblar.add(i.javob)
         }
-        javoblar.removeAt(indexlar[hozirgi])
+        javoblar.removeAt(hozirgi)
 
         for (a in 0..variant.size-1){
             var w = Random.nextInt(javoblar.size)
@@ -131,19 +161,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 javoblar.removeAt(w)
             }
         }
-
-
     }
 
     fun togrimi(javob: String){
-//        if (javob==savollar[indexlar[hozirgi]].javob){
-//            ochko.text = "togri"
-//        }else{
-//            ochko.text = "notogri"
-//        }
 
         var savol = savoltv.text
-
         for (i in savollar){
             if (i.savol==savol){
                 if (i.javob == javob){
@@ -155,8 +177,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 }
             }
         }
-
-
     }
 
     fun savolqosh(){
@@ -173,40 +193,27 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(v: View?) {
         var javob = v as TextView
         togrimi(javob.text.toString())
-
+        if (hozirgi>=savollar.size-1){
+            finishgame()
+        }else{
+            hozirgi++
+        }
         savolyoz()
         varianttanla()
         randomJavob()
-
-
-
-        rasm.animate().apply {
-            duration = 500
-            alpha(0.1f)
-        }.withEndAction{
-
-
-
-            rasm.animate().apply {
-                duration = 500
-                alpha(1f)}
-
-        }.start()
-        rasm.setImageResource(savollar[indexlar[hozirgi]].rasm)
-
-
-
-        if (hozirgi<indexlar.size-1){
-            hozirgi++
-        }else{
-            randomIndex()
-            hozirgi=0
-        }
-
-
-
-
-
-
+        rasmqoy()
     }
+
+    fun finishgame(){
+        finishcard.visibility = VISIBLE
+        result.text = hisob.toString()
+        hozirgi=0
+
+        for (i in variant){
+            i.isEnabled = false
+        }
+    }
+
+
+
 }

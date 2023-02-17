@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +52,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/savol"
                 android:src="@drawable/logotip"
                 />
-
 
 
 
@@ -78,6 +78,7 @@
                     android:layout_weight="1"
                     android:text="javob1"
                     android:textSize="30dp"
+                    android:paddingTop="30dp"
                     android:textColor="@color/black"
                     android:textAlignment="center"
                     android:layout_marginEnd="5dp"
@@ -92,6 +93,7 @@
                     android:layout_weight="1"
                     android:text="javob2"
                     android:textSize="30dp"
+                    android:paddingTop="30dp"
                     android:textAlignment="center"
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="5dp"
@@ -117,6 +119,7 @@
                     android:layout_weight="1"
                     android:text="javob3"
                     android:textSize="30dp"
+                    android:paddingTop="30dp"
                     android:textColor="@color/black"
                     android:textAlignment="center"
                     android:layout_marginEnd="5dp"
@@ -131,6 +134,7 @@
                     android:layout_weight="1"
                     android:text="javob4"
                     android:textSize="30dp"
+                    android:paddingTop="30dp"
                     android:textAlignment="center"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
@@ -146,6 +150,99 @@
 
 
     </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/finishcard"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:visibility="invisible"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/res"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Result"
+                android:textColor="@color/black"
+                android:textSize="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/res" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/yana"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/result"
+                android:text="Boshidanmi?"
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ha"
+                android:backgroundTint="#4CAF50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/yana"
+                android:layout_marginStart="40dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/yoq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="yoq"
+                android:backgroundTint="#F44336"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/yana"
+                android:layout_marginEnd="40dp"/>
+
+
+
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
 
 
 
